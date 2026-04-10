@@ -1,6 +1,15 @@
 # 🤖 RAG Q&A Chatbot
 
-An end-to-end Retrieval-Augmented Generation (RAG) pipeline designed to "chat" with your own PDF documents. Built entirely with Python, LangChain, and Streamlit, this application intelligently breaks down PDFs, stores them in a local vector database, and uses OpenAI's GPT models to answer your queries with precise source citations.
+Welcome to the **RAG Q&A Chatbot**, a comprehensive, end-to-end Retrieval-Augmented Generation (RAG) project that allows you to have intelligent, context-aware conversations with your own PDF documents. 
+
+This educational and practical project leverages the power of **Python**, **LangChain**, and **Streamlit** to create a pipeline that ingests raw documents and turns them into a queryable knowledge base. Unlike basic chatbots, this system significantly reduces hallucination by rigorously rooting its answers in the provided context and providing transparent source citations for every response.
+
+### How it works deep dive:
+1. **Intelligent Ingestion:** It uses LangChain's `PyPDFLoader` to parse all PDF documents placed in the local `pdfs/` directory, extracting both text and metadata.
+2. **Semantic Chunking:** Instead of blindly cutting text by character counts (which often breaks sentences or thoughts in half), the project uses `SemanticChunker` from `langchain_experimental`. This groups text by similar meaning using embeddings, ensuring that chunks are contextually cohesive.
+3. **Local Vector Storage:** These cohesive chunks are converted into mathematical vectors via `OpenAIEmbeddings` and stored in **ChromaDB**, an open-source vector database. Crucially, this database is persisted locally in the `chroma_db/` folder, meaning you only pay OpenAI to embed your documents once, saving time and API credits on subsequent runs.
+4. **Retrieval & Synthesis:** When you ask a question, the system converts your query into an embedding and performs a similarity search in ChromaDB. The top most relevant document chunks are retrieved and injected as context into a prompt template. Finally, `gpt-3.5-turbo` synthesizes a concise, accurate answer based *only* on that context.
+5. **Dual Interfaces:** You can interact with the bot through a beautifully crafted **Streamlit web interface** or a fast, text-based **terminal interface**. Both interfaces provide exact citations, detailing the source file, page number, chunk index, and word count used to formulate the answer.
 
 ## ✨ Features
 
