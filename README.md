@@ -91,3 +91,5 @@ python rag_chatbot.py
 3. **Embedding**: Transforms textual chunks to numbers via `OpenAIEmbeddings`.
 4. **Storage**: Saves embeddings securely inside a local `ChromaDB` directory for caching.
 5. **Retrieval & QA**: When a user prompts the system, ChromaDB runs a vector similarity search for the top most relevant documents, and passes them to an LLM chain to synthesize an accurate, concise answer without hallucinating.
+
+<!-- Minor documentation update to trigger a green contribution -->
